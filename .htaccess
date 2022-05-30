@@ -16,4 +16,3 @@
 
     # Handle Authorization Header
     RewriteC
-</IfModule>
