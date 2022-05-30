@@ -10,6 +10,8 @@
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
     <!-- Styles -->
     <style>
         /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
@@ -405,8 +407,10 @@
 </head>
 
 <body class="antialiased">
-    <a href="/login">Login</a>
-    <a href="/register">Register</a>
+    <div class="col-md-12 text-center">
+        <button type="button" class="btn btn-primary"><a href="/login">Login</a></button>
+        <button type="button" class="btn btn-primary"><a href="/register">Register</a></button>
+    </div>
 </body>
 
 </html>
