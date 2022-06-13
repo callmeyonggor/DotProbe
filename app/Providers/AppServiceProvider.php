@@ -5,6 +5,8 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use \Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Gate;
+use App\Models\User;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,5 +31,13 @@ class AppServiceProvider extends ServiceProvider
             URL::forceScheme('https');
         }
         Schema::defaultStringLength(191);
+
+        Gate::define('isAdmin', function(User $user) {
+            return $user->is_admin == 1;
+        });
+
+        Gate::define('isUser', function(User $user) {
+            return $user->is_admin == 0;
+        });
     }
 }
