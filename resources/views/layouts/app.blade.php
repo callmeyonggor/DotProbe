@@ -12,6 +12,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -19,6 +20,7 @@
     <!-- Styles -->
 
     <link href="/css/app.css" rel="stylesheet">
+    <link href="/css/custom.css" rel="stylesheet">
 </head>
 
 <body>
@@ -31,7 +33,31 @@
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
+                @auth
+                @if(Auth::check() && (Auth::user()->is_admin === 1))
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/home">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/admin/user_listing">User Management</a>
+                        </li>
+                    </ul>
+                </div>
+                @else
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/home">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/statistic/{{Auth::id()}}">Statistic</a>
+                        </li>
+                    </ul>
+                </div>
+                @endif
+                @endauth
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
@@ -83,3 +109,13 @@
 </body>
 
 </html>
+<script>
+    $("document").ready(function() {
+        var path = window.location.href; // because the 'href' property of the DOM element is the absolute path
+        $('.navbar-nav li a').each(function() {
+            if (this.href === path) {
+                $(this).addClass('active');
+            }
+        });
+    })
+</script>
