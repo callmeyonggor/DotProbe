@@ -21,8 +21,9 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::middleware('can:isAdmin')->group(function () {
+});
+
 Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function(){
     Route::match(['get', 'post'], 'user_listing', 'UserController@user_listing')->name('user_listing');
 });
-
-Route::match(['get', 'post'], '/statistic/{id}', 'StatisticController@statistic')->name('statistic');
