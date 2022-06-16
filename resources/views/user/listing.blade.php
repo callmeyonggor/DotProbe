@@ -54,7 +54,7 @@
             @foreach($user as $users)
             <tr>
                 <th scope="row">{{ $no++ }}</th>
-                <td><a href="/statistic/{{$users['id']}}">{{$users['name']}}</a></td>
+                <td><a href="{{url('/statistic/'.$users['id'] )}}">{{$users['name']}}</a></td>
                 <td>{{$users['email']}}</td>
                 @if($users['is_admin']==0)
                 <td>User</td>
