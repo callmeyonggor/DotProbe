@@ -18,9 +18,11 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'id',
         'name',
         'email',
         'password',
+        'is_admin',
     ];
 
     /**
@@ -41,4 +43,38 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public static function get_record($search, $perpage)
+    {
+        $user = User::query();
+
+        if (@$search['freetext']) {
+            $freetext = $search['freetext'];
+            $user = $user->where('users.name', 'like', '%' . $freetext . '%');
+        }
+
+        $user->when(@$search['role'], function ($q) use ($search) {
+            switch ($search['role']) {
+                case 1:
+                    $q->where('users.is_admin', '=', 0);
+                    break;
+                case 2:
+                    $q->where('users.is_admin', '=', 1);
+                    break;
+            }
+        });
+        
+        $user->when(@$search['sort'], function ($q) use ($search) {
+            switch ($search['sort']) {
+                case 1:
+                    $q->orderBy('name', 'ASC');
+                    break;
+                case 2:
+                    $q->orderBy('name', 'DESC');
+                    break;
+            }
+        });
+        $user->orderBy('name', 'ASC');
+        return $user->paginate($perpage);
+    }
 }
