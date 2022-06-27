@@ -25,4 +25,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function(){
     Route::match(['get', 'post'], 'user_listing', 'UserController@user_listing')->name('user_listing');
 });
 
-Route::match(['get', 'post'], '/statistic/{id}', 'StatisticController@statistic')->name('statistic');
+Route::match(['get', 'post'], '/statistic/{id}', 'StatisticController@statistic')->name('statistic_listing');
+
+Route::match(['get', 'post'], '/profile/{id}', 'UserController@profile')->name('profile_edit');
+
+Route::view('/test', 'test');

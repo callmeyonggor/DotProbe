@@ -67,14 +67,14 @@ class User extends Authenticatable
         $user->when(@$search['sort'], function ($q) use ($search) {
             switch ($search['sort']) {
                 case 1:
-                    $q->orderBy('name', 'ASC');
+                    $q->orderBy('created_at', 'ASC');
                     break;
                 case 2:
-                    $q->orderBy('name', 'DESC');
+                    $q->orderBy('created_at', 'DESC');
                     break;
             }
         });
-        $user->orderBy('name', 'ASC');
+        $user->orderBy('created_at', 'ASC');
         return $user->paginate($perpage);
     }
 }
