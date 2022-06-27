@@ -19,7 +19,7 @@
             </div>
             <div class="col-md-4">
                 <div class="form-group">
-                    <label>Sort By (Name)</label>
+                    <label>Sort By (Date)</label>
                     {!! Form::select('sort', $sort_sel, @$search['sort'], ['class' => 'form-control select_active']) !!}
                 </div>
             </div>
@@ -61,7 +61,7 @@
                 @else
                 <td>Admin</td>
                 @endif
-                <td>Edit</td>
+                <td><button type="button" class="btn btn-danger"><a href="{{url('/profile/'.$users['id'] )}}">Edit</a></button></td>
             </tr>
             @endforeach
         </tbody>

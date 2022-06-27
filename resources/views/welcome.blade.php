@@ -17,5 +17,5 @@
         </div>
     </div>
 </div>
-<button type="button" class="btn btn-danger btn-lg position-absolute bottom-0 start-50 translate-middle-x w-50">Start Test</button>
+<a href="/test"><button class="btn btn-danger btn-lg position-absolute bottom-0 start-50 translate-middle-x w-50">Start Test</button></a>
 @endsection

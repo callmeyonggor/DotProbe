@@ -17,7 +17,7 @@
                     @can('isAdmin')
                     <b class="fs-5">{{ __('You are logged in as admin!') }}</b>
                     <br>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.                   
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                     @endcan
 
                     @can('isUser')
@@ -30,5 +30,5 @@
         </div>
     </div>
 </div>
-<button type="button" class="btn btn-danger btn-lg position-absolute bottom-0 start-50 translate-middle-x w-50">Start Test</button>
+<button class="btn btn-danger btn-lg position-absolute bottom-0 start-50 translate-middle-x w-50"><a href="/test">Start Test</a></button>
 @endsection
