@@ -16,6 +16,8 @@
         <div id="gameContainer"></div>
     </div>
     <script>
+        let loop = 1;
+        
         const config = {
             type: Phaser.AUTO,
             autoCenter: Phaser.Scale.CENTER_BOTH,
