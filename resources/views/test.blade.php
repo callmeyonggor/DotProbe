@@ -17,13 +17,16 @@
     </div>
     <script>
         let loop = 1;
-        
+
         const config = {
             type: Phaser.AUTO,
-            autoCenter: Phaser.Scale.CENTER_BOTH,
-            width: 800,
-            height: 600,
-            parent: 'gameContainer',
+            scale: {
+                parent: 'gameContainer',
+                mode: Phaser.Scale.FIT,
+                autoCenter: Phaser.Scale.CENTER_BOTH,
+                width: 800,
+                height: 600
+            },
             transparent: true,
             scene: [Scene1, Scene2, Scene3]
         };
