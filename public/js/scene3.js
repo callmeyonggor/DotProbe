@@ -8,7 +8,7 @@ class Scene3 extends Phaser.Scene {
     }
 
     create() {
-        var characters = 'PQ';
+        var characters = 'CO';
 
         var result = ""
         var chaactersLength = characters.length;
@@ -21,7 +21,7 @@ class Scene3 extends Phaser.Scene {
         this.aGrid = new AlignGrid({ scene: this, rows: 11, cols: 11 });
         this.text = this.add.text(0, 0, "Loop Count: " + loop, style);
         this.aGrid.placeAtIndex(0, this.text);
-        if (loop < 120) {
+        if (loop < 5) {
             this.text = this.add.text(0, 0, result, style);
             this.aGrid.placeAtIndex(63, this.text);
             this.time.addEvent({
