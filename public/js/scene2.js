@@ -17,7 +17,7 @@ class Scene2 extends Phaser.Scene {
         Align.scaleToGameW(this.neutral,.1);
         Align.scaleToGameW(this.sad,.1);
         this.time.addEvent({
-            delay: 3000,
+            delay: 1000,
             loop: false,
             callback: () => {
                 this.scene.start("scene3");

@@ -13,7 +13,7 @@ class Scene1 extends Phaser.Scene {
         this.aGrid.placeAtIndex(60,this.plus);
         Align.scaleToGameW(this.plus,.1);
         this.time.addEvent({
-            delay: 3000,
+            delay: 1000,
             loop: false,
             callback: () => {
                 this.scene.start("scene2");
