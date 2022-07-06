@@ -17,7 +17,7 @@
     </div>
     <script>
         let loop = 1;
-
+        var startTime, endTime;
         const config = {
             type: Phaser.AUTO,
             scale: {
