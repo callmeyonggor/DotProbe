@@ -17,7 +17,8 @@
     </div>
     <script>
         let loop = 1;
-
+        var startTime, endTime;
+        var style = { font: "45px Times New Roman", fill: "black", align: "center" };
         const config = {
             type: Phaser.AUTO,
             scale: {
