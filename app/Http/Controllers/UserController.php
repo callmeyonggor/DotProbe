@@ -70,4 +70,11 @@ class UserController extends Controller
             'user' => $user,
         ]);
     }
+
+    public function result(Request $request){
+        if ($request->isMethod('post')) {
+        }
+
+        return 1;
+    }
 }

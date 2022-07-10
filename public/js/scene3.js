@@ -12,7 +12,6 @@ class Scene3 extends Phaser.Scene {
         startTime = new Date();
         var characters = 'CO';
         var position = [57, 63];
-
         var result = ""
         var chaactersLength = characters.length;
 
@@ -30,30 +29,43 @@ class Scene3 extends Phaser.Scene {
         this.aGrid.placeAtIndex(position[Math.floor(Math.random() * position.length)], this.text);
         this.aGrid.placeAtIndex(102, CButton);
         this.aGrid.placeAtIndex(106, OButton);
-        CButton.on('pointerdown', function(){
-            this.scene.start("scene1");
-            var value = "C";
-            end(value, result)
-        },this)
-        OButton.on('pointerdown', function(){
-            this.scene.start("scene1");
-            var value = "O";
-            end(value, result)
-        },this)
-        this.time.addEvent({
-            callback: () => {
-                loop++;
+        CButton.on('pointerdown', handler, CButton);
+        OButton.on('pointerdown', handler, OButton);
+        function handler() {
+            end();
+            if (result == this.texture.key) {
+                correctness[loop] = "correct";
+            } else {
+                correctness[loop] = "wrong";
             }
-        })
+            this.scene.scene.start("scene1");
+            if (loop == 120) {
+                $.ajaxSetup({
+                    headers:
+                    { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+                });
+                $.ajax({
+                    type: "POST",
+                    data: {
+                        correctness: correctness,
+                        response: response
+                    },
+                    url: "/result",
+                    success: function (data) {
+                        console.log(data);
+                    },
+                });
+            }
+        }
     }
 
     update() {
-        
+
     }
 
 }
 
-function end(value, result) {
+function end() {
     endTime = new Date();
     var timeDiff = endTime - startTime; //in ms
     // strip the ms
@@ -61,10 +73,5 @@ function end(value, result) {
 
     // get seconds 
     var seconds = Math.round(timeDiff);
-    console.log(seconds + " seconds");
-    if (result == value) {
-        console.log("Correct");
-    } else {
-        console.log("Wrong");
-    }
+    response[loop] = seconds;
 }

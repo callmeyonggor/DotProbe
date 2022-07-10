@@ -29,4 +29,6 @@ Route::match(['get', 'post'], '/statistic/{id}', 'StatisticController@statistic'
 
 Route::match(['get', 'post'], '/profile/{id}', 'UserController@profile')->name('profile_edit');
 
+Route::match(['get', 'post'], '/result', 'UserController@result')->name('result');
+
 Route::view('/test', 'test');
