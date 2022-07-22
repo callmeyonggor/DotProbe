@@ -8,10 +8,11 @@ class Scene3 extends Phaser.Scene {
         this.load.image('O', '/image/o.jpg');
     }
 
-    create() {
+    create(data) {
         startTime = new Date();
         var characters = 'CO';
         var position = [57, 63];
+        var randposition = position[Math.floor(Math.random() * position.length)];
         var result = ""
         var chaactersLength = characters.length;
 
@@ -26,7 +27,7 @@ class Scene3 extends Phaser.Scene {
         this.text = this.add.text(0, 0, "Test Count: " + loop, { font: "20px Arial", fill: 'black' });
         this.aGrid.placeAtIndex(0, this.text);
         this.text = this.add.text(0, 0, result, style);
-        this.aGrid.placeAtIndex(position[Math.floor(Math.random() * position.length)], this.text);
+        this.aGrid.placeAtIndex(randposition, this.text);
         this.aGrid.placeAtIndex(102, CButton);
         this.aGrid.placeAtIndex(106, OButton);
         CButton.on('pointerdown', handler, CButton);
@@ -38,25 +39,37 @@ class Scene3 extends Phaser.Scene {
             } else {
                 correctness[loop] = "wrong";
             }
-            this.scene.scene.start("scene1");
-            if (loop == 120) {
+            if (data.data == 'sad_emoji' && randposition == 63) {
+                congruent[loop] = "congruent";
+            }else{
+                congruent[loop] = "incongruent";
+            }
+            loops[loop] = loop;
+
+            this.scene.scene.start("scene1"); 
+            if (loop == 3) {
                 $.ajaxSetup({
                     headers:
-                    { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+                        { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
                 });
                 $.ajax({
                     type: "POST",
+                    url: "/result",
                     data: {
                         correctness: correctness,
-                        response: response
+                        congruent: congruent,
+                        response: response,
+                        loops: loops
                     },
-                    url: "/result",
                     success: function (data) {
-                        console.log(data);
+                        setTimeout(function () {
+                            $("#gameContainer").html(data);
+                        }, 3000);
                     },
                 });
             }
         }
+
     }
 
     update() {
@@ -67,11 +80,9 @@ class Scene3 extends Phaser.Scene {
 
 function end() {
     endTime = new Date();
-    var timeDiff = endTime - startTime; //in ms
-    // strip the ms
-    timeDiff /= 1000;
+    var timeDiff = endTime - startTime;
 
     // get seconds 
-    var seconds = Math.round(timeDiff);
-    response[loop] = seconds;
+    var ms = Math.round(timeDiff);
+    response[loop] = ms;
 }

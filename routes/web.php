@@ -31,4 +31,6 @@ Route::match(['get', 'post'], '/profile/{id}', 'UserController@profile')->name('
 
 Route::match(['get', 'post'], '/result', 'UserController@result')->name('result');
 
+Route::get('paginate', 'UserController@index');
+
 Route::view('/test', 'test');

@@ -16,13 +16,14 @@
 <body>
     <div class="container">
         <div id="gameContainer"></div>
-        <div class="loading"></div>
     </div>
     <script>
         let loop = 0;
         var startTime, endTime;
         var correctness = [];
+        var congruent = [];
         var response = [];
+        var loops = [];
         var style = { font: "45px Times New Roman", fill: "black", align: "center" };
         const config = {
             type: Phaser.AUTO,
@@ -38,6 +39,8 @@
         };
 
         const game = new Phaser.Game(config);
+
+        
     </script>
 </body>
 @endsection

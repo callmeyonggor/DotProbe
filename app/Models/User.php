@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -63,7 +62,7 @@ class User extends Authenticatable
                     break;
             }
         });
-        
+
         $user->when(@$search['sort'], function ($q) use ($search) {
             switch ($search['sort']) {
                 case 1:
@@ -76,5 +75,15 @@ class User extends Authenticatable
         });
         $user->orderBy('created_at', 'ASC');
         return $user->paginate($perpage);
+    }
+    // Relatiobships
+    public function attempt()
+    {
+        return $this->hasMany('App\Model\Attempt', 'user_id');
+    }
+
+    public function result()
+    {
+        return $this->hasMany('App\Model\Result', 'user_id');
     }
 }
