@@ -104,40 +104,40 @@ class UserController extends Controller
 
             
             if (Auth::check()) {
-                // $attempt = Attempt::where('user_id', Auth::id())->latest()->get();
-                // if($attempt->isEmpty()){
-                //     Attempt::create([
-                //         'user_id' => Auth::id(),
-                //         'attempt' => 1,
-                //         'total_correct' => @$total_correct['correct'] ?? 0,
-                //         'total_incongruents' => $total_incongruents,
-                //         'total_congruents' => $total_congruents,
-                //         'avg_response' => $avg_response,
-                //         'avg_incongruent_response' => $avg_incongruent_response,
-                //         'avg_congruent_response' => $avg_congruent_response,
-                //     ]);
-                // }else{
-                //     Attempt::create([
-                //         'user_id' => Auth::id(),
-                //         'attempt' => $attempt[0]->attempt + 1,
-                //         'total_correct' => @$total_correct['correct'] ?? 0,
-                //         'total_incongruents' => $total_incongruents,
-                //         'total_congruents' => $total_congruents,
-                //         'avg_response' => $avg_response,
-                //         'avg_incongruent_response' => $avg_incongruent_response,
-                //         'avg_congruent_response' => $avg_congruent_response,
-                //     ]);
-                // }
-                // $attempt = Attempt::where('user_id', Auth::id())->latest()->get();
-                // foreach($loop as $key => $value){
-                //     Result::create([
-                //         'user_id' => Auth::id(),
-                //         'attempt' => $attempt[0]->attempt,
-                //         'response_time' => $response[$key],
-                //         'correctness' => $correctness[$key],
-                //         'congruency' => $congruent[$key],
-                //     ]);
-                // }
+                $attempt = Attempt::where('user_id', Auth::id())->latest()->get();
+                if($attempt->isEmpty()){
+                    Attempt::create([
+                        'user_id' => Auth::id(),
+                        'attempt' => 1,
+                        'total_correct' => @$total_correct['correct'] ?? 0,
+                        'total_incongruents' => $total_incongruents,
+                        'total_congruents' => $total_congruents,
+                        'avg_response' => $avg_response,
+                        'avg_incongruent_response' => $avg_incongruent_response,
+                        'avg_congruent_response' => $avg_congruent_response,
+                    ]);
+                }else{
+                    Attempt::create([
+                        'user_id' => Auth::id(),
+                        'attempt' => $attempt[0]->attempt + 1,
+                        'total_correct' => @$total_correct['correct'] ?? 0,
+                        'total_incongruents' => $total_incongruents,
+                        'total_congruents' => $total_congruents,
+                        'avg_response' => $avg_response,
+                        'avg_incongruent_response' => $avg_incongruent_response,
+                        'avg_congruent_response' => $avg_congruent_response,
+                    ]);
+                }
+                $attempt = Attempt::where('user_id', Auth::id())->latest()->get();
+                foreach($loop as $key => $value){
+                    Result::create([
+                        'user_id' => Auth::id(),
+                        'attempt' => $attempt[0]->attempt,
+                        'response_time' => $response[$key],
+                        'correctness' => $correctness[$key],
+                        'congruency' => $congruent[$key],
+                    ]);
+                }
             }
 
             return view('/result/result', [
