@@ -12,7 +12,13 @@ class Attempt extends Model
     protected $fillable = [
         'id',
         'user_id',
-        'attempt'
+        'attempt',
+        'total_correct',
+        'total_incongruents',
+        'total_congruents',
+        'avg_response',
+        'avg_incongruent_response',
+        'avg_congruent_response',
     ];
 
     public function result()

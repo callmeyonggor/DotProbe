@@ -14,6 +14,7 @@ class Result extends Model
         'user_id',
         'attempt',
         'correctness',
+        'congruency',
         'response_time'
     ];
 }

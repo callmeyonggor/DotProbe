@@ -62,9 +62,7 @@ class Scene3 extends Phaser.Scene {
                         loops: loops
                     },
                     success: function (data) {
-                        setTimeout(function () {
-                            $("#gameContainer").html(data);
-                        }, 3000);
+                        $("#gameContainer").html(data);
                     },
                 });
             }
