@@ -9,6 +9,8 @@
     <script src="/js/utilities/align.js"></script>
     <script src="/js/utilities/alignGrid.js"></script>
     <script src="/js/utilities/UIBlock.js"></script>
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 
 <body>
@@ -16,8 +18,12 @@
         <div id="gameContainer"></div>
     </div>
     <script>
-        let loop = 1;
+        let loop = 0;
         var startTime, endTime;
+        var correctness = [];
+        var congruent = [];
+        var response = [];
+        var loops = [];
         var style = { font: "45px Times New Roman", fill: "black", align: "center" };
         const config = {
             type: Phaser.AUTO,
@@ -33,6 +39,8 @@
         };
 
         const game = new Phaser.Game(config);
+
+        
     </script>
 </body>
 @endsection
