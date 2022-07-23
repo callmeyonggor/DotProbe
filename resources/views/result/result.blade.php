@@ -1,6 +1,6 @@
 <body>
     <a href="/">
-        <h1><i class="bi bi-arrow-return-left"></i> Go Back</h1>
+        <h1><i class="fa-solid fa-angle-left"></i> Go Back</h1>
     </a>
     <div class="position-absolute top-50 start-50 translate-middle">
         <h1>Total_correct: {{$total_correct}}</h1>

@@ -3,19 +3,22 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col">
             <div class="card">
                 <div class="card-header"><b class="fs-3">{{ __('Instruction') }}</b></div>
 
-                <div class="card-body p-5">
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                    Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                <div class="overflow vh-100 p-4 bg-dark">
+                    <p class="fs-3 text-white">
+                        1) Click on the <b>Start</b> button at the right to start the test. <i class="fa-solid fa-angles-right"></i><br>
+                        2) <a href="/login"><b>Log In</b></a> to your existing account or <a href="/register"><b>Register</b></a> an account if you wish to save your test result.<br>
+                        3) Email address is unique hence one email can only use to register for one account. <br>
+                    </p>
                 </div>
             </div>
         </div>
+        <div class="col-md-2 p-5">
+            <a class="animated-btn text-white" href="/test" data-toggle="tooltip" data-placement="bottom" title="Log In to Save the test result"><i class="fa fa-play"></i></a>
+        </div>
     </div>
 </div>
-<a href="/test"><button class="btn btn-danger btn-lg position-absolute bottom-0 start-50 translate-middle-x w-50">Start Test</button></a>
 @endsection
