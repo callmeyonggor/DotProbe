@@ -47,7 +47,7 @@ class Scene3 extends Phaser.Scene {
             loops[loop] = loop;
 
             this.scene.scene.start("scene1"); 
-            if (loop == 3) {
+            if (loop == 120) {
                 $.ajaxSetup({
                     headers:
                         { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
