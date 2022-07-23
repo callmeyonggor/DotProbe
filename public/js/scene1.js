@@ -7,7 +7,7 @@ class Scene1 extends Phaser.Scene {
     }
 
     create() {
-        if (loop != 120) {
+        if (loop != 3) {
             this.plus = this.add.image(0, 0, 'plus');
             this.aGrid = new AlignGrid({ scene: this, rows: 11, cols: 11 });
             this.aGrid.placeAtIndex(60, this.plus);
