@@ -37,6 +37,11 @@ h1{
     hyphens: auto;
 }
 
+table {
+   margin: auto;
+   width: 50% !important; 
+}
+
 .container {
     overflow: hidden;
     width: 100%;

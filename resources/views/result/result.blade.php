@@ -1,15 +1,59 @@
 <body>
     <div class="container-fluid">
-        <div class="position-absolute top-50 start-50 translate-middle">
-            <a href="/">
-                <p class="fs-1"><i class="fa-solid fa-angle-left"></i> Go Back</p>
-            </a>
-            <p class="fs-3">Total_correct: {{$total_correct}}
-                Average Response Time: {{$avg_response}}ms<br>
-                Total Incongruent: {{$total_incongruents}}<br>
-                Average Incongruent Response Time: {{$avg_incongruent_response}}ms<br>
-                Total Congruent: {{$total_congruents}}<br>
-                Average Congruent Response Time: {{$avg_congruent_response}}ms<br>
+        <a href="/">
+            <p class="fs-1"><i class="fa-solid fa-angle-left"></i> Go Back</p>
+        </a>
+        <div class="table-responsive">
+            <table class="fs-2 table table-bordered">
+                <tr>
+                    <th>
+                        Total_correct
+                    </th>
+                    <td>
+                        {{ $total_correct }}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Average Response Time
+                    </th>
+                    <td>
+                        {{$avg_response}}ms
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Total Incongruent
+                    </th>
+                    <td>
+                        {{$total_incongruents}}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Average Incongruent Response Time
+                    </th>
+                    <td>
+                        {{$avg_incongruent_response}}ms
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Total Congruent
+                    </th>
+                    <td>
+                        {{$total_congruents}}
+                    </td>
+                </tr>
+                <tr>
+                    <th>
+                        Average Congruent Response Time
+                    </th>
+                    <td>
+                        {{$avg_congruent_response}}ms
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
 </body>
