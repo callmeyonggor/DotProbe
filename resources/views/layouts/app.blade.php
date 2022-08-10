@@ -54,7 +54,7 @@
                             <a class="nav-link" href="/">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/statistic/{{Auth::id()}}">Statistic</a>
+                            <a class="nav-link" href="/record/{{Auth::id()}}">Record</a>
                         </li>
                     </ul>
                 </div>

@@ -79,11 +79,11 @@ class User extends Authenticatable
     // Relatiobships
     public function attempt()
     {
-        return $this->hasMany('App\Model\Attempt', 'user_id');
+        return $this->hasMany(Attempt::class, 'user_id');
     }
 
     public function result()
     {
-        return $this->hasMany('App\Model\Result', 'user_id');
+        return $this->hasMany(Result::class, 'user_id');
     }
 }

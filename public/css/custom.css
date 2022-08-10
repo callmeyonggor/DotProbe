@@ -7,7 +7,11 @@ a {
     text-decoration: none;
 }
 
-p { line-height: 250%; } /* line-height: 1.5; */
+p {
+    line-height: 250%;
+}
+
+/* line-height: 1.5; */
 
 a:hover {
     color: inherit;
@@ -28,7 +32,7 @@ body {
     /* Konqueror HTML */
 }
 
-h1{
+h1 {
     word-wrap: break-word;
     -webkit-hyphens: auto;
     -moz-hyphens: auto;
@@ -58,7 +62,8 @@ h1{
     position: relative;
 }
 
-.animated-btn::before, .animated-btn::after {
+.animated-btn::before,
+.animated-btn::after {
     content: '';
     display: block;
     position: absolute;
@@ -76,6 +81,16 @@ h1{
     background: rgba(255, 63, 63, 0.6);
     animation: ripple-2 2s infinite ease-in-out;
     animation-delay: 0.5s;
+}
+
+.tableFixHead thead th {
+    position: sticky;
+    top: 0;
+  }
+
+.record_detail_container {
+    height: 500px;
+    overflow-y: scroll;
 }
 
 @keyframes ripple-1 {

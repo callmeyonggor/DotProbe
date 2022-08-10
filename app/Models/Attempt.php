@@ -21,6 +21,8 @@ class Attempt extends Model
         'avg_congruent_response',
     ];
 
+    
+
     public function result()
     {
         return $this->hasMany('App\Model\Result', 'attempt')->where('user_id', '=', $this->user_id);
