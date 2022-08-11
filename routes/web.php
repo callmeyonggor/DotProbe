@@ -21,18 +21,21 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function(){
+Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function () {
     Route::match(['get', 'post'], 'user_listing', 'UserController@user_listing')->name('user_listing');
 });
 
 Route::match(['get', 'post'], '/record/{id}', 'RecordController@record')->name('record_listing');
 
-Route::match(['get', 'post'], '/record/attempt/{attempt}/{id}', 'RecordController@record_detail')->name('record_detail');
+
 
 Route::match(['get', 'post'], '/profile/{id}', 'UserController@profile')->name('profile_edit');
 
 Route::match(['get', 'post'], '/result', 'UserController@result')->name('result');
 
-Route::get('/results/export/{attempt}/{id}', 'RecordController@export');
+Route::middleware('admin')->group(function () {
+    Route::get('/results/export/{attempt}/{id}', 'RecordController@export');
+    Route::match(['get', 'post'], '/record/attempt/{attempt}/{id}', 'RecordController@record_detail')->name('record_detail');
+});
 
 Route::view('/test', 'test');

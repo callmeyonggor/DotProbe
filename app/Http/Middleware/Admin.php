@@ -20,7 +20,7 @@ class Admin
         if (Auth::check() && Auth::user()->is_admin == 1) {
             return $next($request);
         } else {
-            abort(403, 'Unauthorized.');
+            abort(403, 'This page is only available for admin.');
         }
     }
 }
