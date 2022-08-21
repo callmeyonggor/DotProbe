@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use App\Models\User;
 use App\Models\Attempt;
 use App\Models\Result;
+use App\Rules\MatchOldPassword;
 
 class UserController extends Controller
 {
@@ -46,7 +49,7 @@ class UserController extends Controller
         ]);
     }
 
-    public function profile(REquest $request, $id)
+    public function profile(Request $request, $id)
     {
         $user = User::find($id);
         if (!$user) {
@@ -60,16 +63,59 @@ class UserController extends Controller
         if ($request->isMethod('post')) {
             $submit_type = $request->input('submit');
             switch ($submit_type) {
-                case 'save':
+                case 'update_profile':
                     dd($request);
                     break;
+                case 'change_pass':
+                    $validator = Validator::make($request->all(), [
+                        'old_password' => ['required', new MatchOldPassword],
+                        'new_password' => ['required'],
+                        'repeat_password' => ['same:new_password'],
+                    ])->setAttributeNames([
+                        'old_password' => 'Old password',
+                        'new_password' => 'New Password',
+                        'repeat_password' => 'Repeat Password',
+                    ]);
+                    if (!$validator->fails()) {
+                        User::find(Auth::id())->update([
+                            'password' => Hash::make($request->input('new_password')),
+                        ]);
+                        return redirect()->back();
+                    }
+                    return redirect()->back()->withErrors($validator);
+                    break;
                 case 'cancel':
-                    return back();
+                    return redirect()->route('home');
                     break;
             }
         }
         return view('user/profile', [
             'user' => $user,
+            'handedness_sel' => [
+                ' ' => 'Please Select Handedness',
+                'Right' => 'Right',
+                'Left' => 'Left',
+                'Ambidextrous' => 'Ambidextrous(able to use both hands equally well for any task)'
+            ],
+            'education_sel' => [
+                ' ' => 'Please Select Education',
+                'Primary Level' => 'Primary Level',
+                'Secondary Level' => 'Secondary level (SPM) or equivalent',
+                'Training' => 'Trade/technical/vocational training',
+                'Form6' => 'Foundation, Diploma or equivalent',
+                'Bachelor' => "Bachelor's degree",
+                'Master' => "Master's degree",
+                'Professional' => 'Professional degree',
+                'Doctorate' => 'Doctorate degree',
+                'Other' => 'Other'
+            ],
+            'race_sel' => [
+                ' ' => 'Please Select Races',
+                'chinese' => 'Chinese',
+                'malay' => 'Malay',
+                'indian' => 'Indian',
+                'other' => 'Other'
+            ]
         ]);
     }
 
@@ -91,21 +137,21 @@ class UserController extends Controller
             $total_incongruents = isset($total_congruent['incongruent']) ? $total_congruent['incongruent'] : 0;
             $avg_response = round(($all_response / $total_set), 2) ?? 0;
 
-            foreach(array_keys($congruent, 'congruent') as $value){
+            foreach (array_keys($congruent, 'congruent') as $value) {
                 $congruent_response += $response[$value];
             }
 
-            foreach(array_keys($congruent, 'incongruent') as $value){
+            foreach (array_keys($congruent, 'incongruent') as $value) {
                 $incongruent_response += $response[$value];
             }
 
             $avg_incongruent_response = $total_incongruents != 0 ? round(($incongruent_response / $total_incongruents), 2) : 0;
             $avg_congruent_response = $total_congruents != 0 ? round(($congruent_response / $total_congruents), 2) : 0;
 
-            
+
             if (Auth::check()) {
                 $attempt = Attempt::where('user_id', Auth::id())->latest()->get();
-                if($attempt->isEmpty()){
+                if ($attempt->isEmpty()) {
                     Attempt::create([
                         'user_id' => Auth::id(),
                         'attempt' => 1,
@@ -116,7 +162,7 @@ class UserController extends Controller
                         'avg_incongruent_response' => $avg_incongruent_response,
                         'avg_congruent_response' => $avg_congruent_response,
                     ]);
-                }else{
+                } else {
                     Attempt::create([
                         'user_id' => Auth::id(),
                         'attempt' => $attempt[0]->attempt + 1,
@@ -129,7 +175,7 @@ class UserController extends Controller
                     ]);
                 }
                 $attempt = Attempt::where('user_id', Auth::id())->latest()->get();
-                foreach($loop as $key => $value){
+                foreach ($loop as $key => $value) {
                     Result::create([
                         'user_id' => Auth::id(),
                         'attempt' => $attempt[0]->attempt,
