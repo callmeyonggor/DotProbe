@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
@@ -80,7 +81,8 @@ class UserController extends Controller
                         User::find(Auth::id())->update([
                             'password' => Hash::make($request->input('new_password')),
                         ]);
-                        return redirect()->back();
+                        Session::flash('success_msg', 'Password change successfully.');
+                        return back();
                     }
                     return redirect()->back()->withErrors($validator);
                     break;
