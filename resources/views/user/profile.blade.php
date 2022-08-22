@@ -30,35 +30,35 @@
                 </div>
                 <div class="form-group">
                     <label>Course of study/Job title</label>
-                    <input type="text" class="form-control" placeholder="Course of study/Job title" required>
+                    <input type="text" class="form-control" name="job" placeholder="Course of study/Job title" value="{{ (isset($post->job) ? $post->job : $user->job) }}" required>
                 </div>
             </div>
             <div class="col">
                 <div class="form-group">
                     <label>Age</label>
-                    <input type="number" class="form-control" name="age" placeholder="Age" required>
+                    <input type="number" class="form-control" name="age" placeholder="Age" value="{{ (isset($post->age) ? $post->age : $user->age) }}" required>
                 </div>
                 <div class="form-group">
                     <label>Height (in CM)</label>
-                    <input type="number" step="any" class="form-control" name="height" placeholder="Height" required>
+                    <input type="number" step="any" class="form-control" name="height" placeholder="Height" value="{{ (isset($post->height) ? $post->height : $user->height) }}" required>
                 </div>
                 <div class="form-group">
                     <label>Weight (in KG)</label>
-                    <input type="number" step="any" class="form-control" name="weight" placeholder="Weight" required>
+                    <input type="number" step="any" class="form-control" name="weight" placeholder="Weight" value="{{ (isset($post->weight) ? $post->weight : $user->weight) }}" required>
                 </div>
             </div>
             <div class="col">
                 <div class="form-group">
                     <label>Race</label>
-                    {!! Form::select('race', $race_sel, @$search['race'], ['class' => 'form-control select_active']) !!}
+                    {!! Form::select('race', $race_sel, (isset($post->race) ? $post->race : $user->race), ['class' => 'form-control select_active']) !!}
                 </div>
                 <div class="form-group">
                     <label>Education Level</label>
-                    {!! Form::select('education', $education_sel, @$search['education'], ['class' => 'form-control select_active']) !!}
+                    {!! Form::select('education', $education_sel, (isset($post->education) ? $post->education : $user->education), ['class' => 'form-control select_active']) !!}
                 </div>
                 <div class="form-group">
                     <label>Handedness</label>
-                    {!! Form::select('handedness', $handedness_sel, @$search['handedness'], ['class' => 'form-control select_active']) !!}
+                    {!! Form::select('handedness', $handedness_sel, (isset($post->handedness) ? $post->handedness : $user->handedness), ['class' => 'form-control select_active']) !!}
                 </div>
                 <div class="float-end">
                     <div class="form-check form-switch">

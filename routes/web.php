@@ -19,14 +19,14 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::middleware('profile')->group(function () {
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::match(['get', 'post'], '/record/{id}', 'RecordController@record')->name('record_listing');
+});
 
 Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function () {
     Route::match(['get', 'post'], 'user_listing', 'UserController@user_listing')->name('user_listing');
 });
-
-Route::match(['get', 'post'], '/record/{id}', 'RecordController@record')->name('record_listing');
-
 
 
 Route::match(['get', 'post'], '/profile/{id}', 'UserController@profile')->name('profile_edit');
