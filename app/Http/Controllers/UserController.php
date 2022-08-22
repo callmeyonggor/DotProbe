@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
@@ -64,7 +65,66 @@ class UserController extends Controller
             $submit_type = $request->input('submit');
             switch ($submit_type) {
                 case 'update_profile':
-                    dd($request);
+                    $post = (object) $request->all();
+                    $validator = Validator::make($request->all(), [
+                        'age' => ['required', 'numeric', 'gt:0'],
+                        'height' => ['required', 'numeric', 'gt:0'],
+                        'weight' => ['required', 'numeric', 'gt:0'],
+                        'race' => ['required'],
+                        'education' => ['required'],
+                        'job' => ['required'],
+                        'handedness' => ['required'],
+                    ])->setAttributeNames([
+                        'age' => 'Age',
+                        'height' => 'Height',
+                        'weight' => 'Weight',
+                        'race' => 'Race',
+                        'education' => 'Education',
+                        'job' => 'Job',
+                        'handedness' => 'Handedness',
+                    ]);
+                    if (!$validator->fails()) {
+                        User::find(Auth::id())->update([
+                            'age' => $request->input('age'),
+                            'height' => $request->input('height'),
+                            'weight' => $request->input('weight'),
+                            'race' => $request->input('race'),
+                            'education' => $request->input('education'),
+                            'job' => $request->input('job'),
+                            'handedness' => $request->input('handedness'),
+                        ]);
+                        Session::flash('success_msg', 'Profile update successfully.');
+                        return back();
+                    }
+                    return view('user/profile', [
+                        'user' => $user,
+                        'handedness_sel' => [
+                            ' ' => 'Please Select Handedness',
+                            'Right' => 'Right',
+                            'Left' => 'Left',
+                            'Ambidextrous' => 'Ambidextrous(able to use both hands equally well for any task)'
+                        ],
+                        'education_sel' => [
+                            ' ' => 'Please Select Education',
+                            'Primary Level' => 'Primary Level',
+                            'Secondary Level' => 'Secondary level (SPM) or equivalent',
+                            'Training' => 'Trade/technical/vocational training',
+                            'Form6' => 'Foundation, Diploma or equivalent',
+                            'Bachelor' => "Bachelor's degree",
+                            'Master' => "Master's degree",
+                            'Professional' => 'Professional degree',
+                            'Doctorate' => 'Doctorate degree',
+                            'Other' => 'Other'
+                        ],
+                        'race_sel' => [
+                            ' ' => 'Please Select Races',
+                            'chinese' => 'Chinese',
+                            'malay' => 'Malay',
+                            'indian' => 'Indian',
+                            'other' => 'Other'
+                        ],
+                        'post' => $post
+                    ])->withErrors($validator);
                     break;
                 case 'change_pass':
                     $validator = Validator::make($request->all(), [
@@ -80,7 +140,8 @@ class UserController extends Controller
                         User::find(Auth::id())->update([
                             'password' => Hash::make($request->input('new_password')),
                         ]);
-                        return redirect()->back();
+                        Session::flash('success_msg', 'Password change successfully.');
+                        return back();
                     }
                     return redirect()->back()->withErrors($validator);
                     break;
