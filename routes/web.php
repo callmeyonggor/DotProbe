@@ -13,15 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Auth::routes();
 
 Route::middleware('profile')->group(function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
     Route::match(['get', 'post'], '/record/{id}', 'RecordController@record')->name('record_listing');
+    Route::get('/', function () {
+        return view('welcome');
+    });
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => ['admin']], function () {
