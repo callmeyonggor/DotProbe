@@ -48,6 +48,7 @@ class RecordController extends Controller
 
     public function export($attempt, $id) 
     {
-        return (new ResultsExport($attempt, $id))->download('user_'.$id.'_attempt_'.$attempt.'_result'.'.xlsx');
+        $user = User::find($id);
+        return (new ResultsExport($attempt, $id))->download($user->name.'_attempt_'.$attempt.'_result'.'.xlsx');
     }
 }
