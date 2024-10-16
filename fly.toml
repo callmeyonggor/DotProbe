@@ -1,0 +1,44 @@
+app = "dotprobe"
+kill_signal = "SIGINT"
+kill_timeout = "5s"
+primary_region = "hkg"
+
+[env]
+APP_ENV = "production"
+LOG_CHANNEL = "stderr"
+LOG_LEVEL = "info"
+LOG_STDERR_FORMATTER = "Monolog\\Formatter\\JsonFormatter"
+
+[experimental]
+auto_rollback = true
+
+[[services]]
+internal_port = 8080
+processes = [ "app" ]
+protocol = "tcp"
+
+  [services.concurrency]
+  hard_limit = 25
+  soft_limit = 20
+  type = "connections"
+
+  [[services.ports]]
+  force_https = true
+  handlers = [ "http" ]
+  port = 80
+
+  [[services.ports]]
+  handlers = [ "tls", "http" ]
+  port = 443
+
+  [[services.tcp_checks]]
+  grace_period = "1s"
+  interval = "15s"
+  timeout = "2s"
+
+[build]
+  builder = "heroku/buildpacks:20"  # Example for Heroku buildpack
+  buildpacks = [
+    "heroku/php",                   # Example for PHP apps
+    "heroku/nodejs"                 # Example for Node.js apps
+  ]
